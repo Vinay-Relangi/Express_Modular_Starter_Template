@@ -22,7 +22,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(compression());
 
-app.use(function (req, res, next) {
+app.use((req, res, next) =>{
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept,x-access-token,link');
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT,PATCH, DELETE, OPTIONS');
@@ -32,11 +32,11 @@ app.use(function (req, res, next) {
 app.use('/api/v1', routes);
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use( (err, req, res, next) =>{
   res.status(err.status || 500);
 });
 
-console.error = function (d) {
+console.error =  (d) => {
   debugger;
 }
 

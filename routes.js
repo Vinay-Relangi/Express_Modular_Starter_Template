@@ -1,18 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const movieCtrl = require('./controllers/movieController');
+const movieRouter = require('./controllers/movie/movieRouter');
 
-router.use(function (req, res, next) {
-    if (req.user === 'farmer') {
-        next()
-    } else {
-        res.status(403).send('Forbidden')
-    }
+router.use((req, res, next) => {
+    // if (req.user === 'farmer') {
+    //     next();
+    // } else {
+    //     res.status(403).send('Forbidden')
+    // }
+    next();
 })
-
-router.route('/movie/:moveId').get(movieCtrl.getMovie);
-router.route('/movie').post(movieCtrl.postMovie);
-router.route('/movies').get(movieCtrl.getMovies);
+router.use('/movies', movieRouter);
 
 module.exports = router;
