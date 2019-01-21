@@ -4,12 +4,12 @@ const config = {
     password: 'Test@123',
     server: '192.168.0.119',
     port: 3133,
-    database: 'analytic_sample_test_05122018',
+    database: 'analytic_05122018',
     parseJSON: true
 }
 const pool = new sql.ConnectionPool(config);
 
-pool.connect();
+pool.connect((err) => false);
 
 const dbRequest = async (reqQuery) => {
     await pool;
