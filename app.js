@@ -7,7 +7,10 @@ const compression = require('compression');
 const helmet = require('helmet');
 
 const routes = require('./routes');
-
+const db = require('./models/dbModel');
+setTimeout(async () => {
+  console.log(await db.dbRequest('select * from UDS_CenterTableConfig'));
+}, 1000);
 const app = express();
 
 app.use(helmet());
@@ -22,7 +25,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(compression());
 
-app.use((req, res, next) =>{
+app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept,x-access-token,link');
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT,PATCH, DELETE, OPTIONS');
@@ -32,11 +35,11 @@ app.use((req, res, next) =>{
 app.use('/api/v1', routes);
 
 // error handler
-app.use( (err, req, res, next) =>{
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
 });
 
-console.error =  (d) => {
+console.error = (d) => {
   debugger;
 }
 
